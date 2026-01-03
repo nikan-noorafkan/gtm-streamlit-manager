@@ -4,6 +4,8 @@ from gtm_api import get_service, list_accounts, list_containers, list_workspaces
 
 st.title("GTM API Manager")
 
+redirect_uri = st.get_current_url().split("?")[0]
+
 with st.expander("🔐 Google OAuth Setup (Required)", expanded=True):
     client_id = st.text_input("Google OAuth Client ID")
     client_secret = st.text_input(
@@ -11,8 +13,7 @@ with st.expander("🔐 Google OAuth Setup (Required)", expanded=True):
         type="password"
     )
 
-redirect_uri = st.get_current_url().split("?")[0]
-
+    st.caption("Use this redirect URI in your Google OAuth client:")
     st.code(redirect_uri, language="text")
 
     if st.button("Save OAuth Credentials"):
@@ -21,14 +22,13 @@ redirect_uri = st.get_current_url().split("?")[0]
             st.stop()
 
         st.session_state["oauth_client"] = {
-            "client_id": client_id,
-            "client_secret": client_secret,
+            "client_id": client_id.strip(),
+            "client_secret": client_secret.strip(),
             "redirect_uri": redirect_uri,
         }
 
-        st.success("OAuth credentials saved for this session.")
+        st.success("OAuth credentials saved. Please login with Google.")
 
-# ---------- Auth ----------
 login()
 credentials = get_credentials()
 if not credentials:
