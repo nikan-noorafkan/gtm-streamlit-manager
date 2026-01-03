@@ -11,7 +11,7 @@ with st.expander("🔐 Google OAuth Setup (Required)", expanded=True):
         type="password"
     )
 
-    redirect_uri = st.secrets["app"]["base_url"]
+redirect_uri = st.get_current_url().split("?")[0]
 
     st.code(redirect_uri, language="text")
 
