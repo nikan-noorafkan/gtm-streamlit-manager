@@ -4,7 +4,7 @@ from gtm_api import get_service, list_accounts, list_containers, list_workspaces
 
 st.title("GTM API Manager")
 
-redirect_uri = st.get_current_url().split("?")[0]
+redirect_uri = st.secrets["app"]["base_url"]
 
 with st.expander("🔐 Google OAuth Setup (Required)", expanded=True):
     client_id = st.text_input("Google OAuth Client ID")
